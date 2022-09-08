@@ -4,15 +4,18 @@
 import paramiko
 import datetime
 import time
-user = 'username'
-secret = 'password'
+import os
+
+#create a system variable for "user_name" and "secret" with the cisco username/pass
+user = os.environ.get("user_name")
+secret = os.environ.get("secret")
 port = 22
 ssh = paramiko.SSHClient()
 ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
  
 # define variables
 time_now  = datetime.datetime.now().strftime('%m_%d_%Y_%H_%M_%S')
-infilepath = "rootpath"
+infilepath = "C:\\htdata\\"
 devicelist = "device-list.txt"
  
 # open device file
@@ -28,7 +31,7 @@ for ip in iplist:
     time.sleep(2)
     output=client.recv(65535)
 
-    client.send(f"copy running-config tftp://IPADDRESS/runningconfig-{ipaddr}-{time_now}.cfg\n")
+    client.send(f"copy running-config tftp://10.4.5.22/runningconfig-{ipaddr}-{time_now}.cfg\n")
     time.sleep(2)
     output=client.recv(65535)
 ssh.close()
