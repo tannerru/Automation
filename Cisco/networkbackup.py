@@ -28,7 +28,7 @@ for ip in iplist:
     time.sleep(2)
     output=client.recv(65535)
 
-    client.send(f"copy running-config tftp://"IPADDRESS""/runningconfig-{ipaddr}-{time_now}.cfg\n")
+    client.send(f"copy running-config tftp://IPADDRESS/runningconfig-{ipaddr}-{time_now}.cfg\n")
     time.sleep(2)
     output=client.recv(65535)
 ssh.close()
