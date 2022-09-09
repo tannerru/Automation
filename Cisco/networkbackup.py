@@ -15,11 +15,11 @@ ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
  
 # define variables
 time_now  = datetime.datetime.now().strftime('%m_%d_%Y_%H_%M_%S')
-infilepath = "C:\\htdata\\"
+infilepath = os.getcwd() + '//'
 devicelist = "device-list.txt"
  
 # open device file
-input_file = open( infilepath + devicelist, "r")
+input_file = open(infilepath + devicelist, "r")
 iplist = input_file.readlines()
 input_file.close()
  
