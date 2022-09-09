@@ -5,6 +5,9 @@ import paramiko
 import datetime
 import time
 import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 #create a system variable for "user_name" and "secret" with the cisco username/pass
 user = os.environ.get("user_name")
