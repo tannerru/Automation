@@ -1,0 +1,24 @@
+#Adding random bits of information to build an update script also for the Cisco devices, This may be combined later on.
+show version (will return the version, Maybe store this in a txt somewhere to confirm all devices on same flash version.)
+
+
+# loop through device list and execute commands
+for ip in iplist:
+    ipaddr = ip.strip()
+    ssh.connect(hostname=ipaddr, username=user, password=secret, port=port) 
+    client=ssh.invoke_shell()
+    time.sleep(2)
+    output=client.recv(65535)
+
+    client.send(f"copy tftp://SOURCEIPADDRESS/FIRMWARENAME.bin flash:DESTINATIONFILENAME{time_now}.bin\n")   #copies updated firmware to the cisco flash
+    time.sleep(2) 
+    output=client.recv(65535)
+
+    client.send(f"boot system flash:FIRMWARENAME.bin\n") #sets the cisco device to use defined firmware
+    time.sleep(20)
+    output=client.recv(65535)
+
+     client.send(f"reload\n") #reloads the configure enabling the new firmware
+    time.sleep(2)
+    output=client.recv(65535)
+ssh.close()
