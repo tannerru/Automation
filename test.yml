@@ -1,30 +1,10 @@
 ---
-
-- name: "Create New user on Windows Machine"
-
-  hosts: "{{ NODES }}"
-
+- name: Add a user
+  hosts: all
+  gather_facts: false
   tasks:
-
-    - name: "Check Windows machines access using win_ping"
-
-      win_ping:
-
-      when: ansible_os_family == 'Windows'
-
-    
-
-    - name: Create a new User 
-
+    - name: Add User
       win_user:
-
-        name: john
-
-        password: MyP4ssw0rd
-
+        name: ansible
+        password: "@ns1bl3"
         state: present
-
-        groups:
-
-          - Users
-      when: ansible_os_family == 'Windows'
